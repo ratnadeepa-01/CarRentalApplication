@@ -14,6 +14,7 @@ const Home = () => {
         <Banner/>
         <Testimonial/>  
         <Newsletter/>
+        
        </>
     </div>
   )
