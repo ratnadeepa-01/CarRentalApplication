@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { data, useNavigate, useParams } from 'react-router-dom'
 import { assets, dummyCarData } from '../assets/assets'
 import Loader from '../components/Loader'
 
 const CarDetails = () => {
-  const {id} = useParams()
-  const navigate = useNavigate()
-  const [car,setCar] = useState(null)
+  const {id} = useParams();
+  const navigate = useNavigate();
+  const [car,setCar] = useState(null);
+  const currency = import.meta.env.VITE_CURRENCY;
+   
+  const handelSubmit = async (e)=>{
+    e.preventDefault();
+  }
 
   useEffect(()=>{
     setCar(dummyCarData.find(car => car._id === id))
@@ -45,11 +50,15 @@ const CarDetails = () => {
               </div>
             ))}
           </div>
+
+
           {/* discription */}
           <div>
             <h1 className='text-xl font-medium mb-3'> Description</h1>
             <p className='text-gray-500 '>{car.description}</p>
           </div>
+
+
           {/* features */}
           <div>
             <h1 className='text-xl font-medium mb-3'> Features</h1>
@@ -71,7 +80,38 @@ const CarDetails = () => {
        </div>
 
        {/* Right: Booking Form */}
-       <form></form>
+       <form onSubmit={handelSubmit}
+       className='shadow-lg h-max sticky top-18 rounded-xl
+       p-6 space-y-6 text-gray-500 '>
+
+        <p className='flex items-centerjustify-between text-2xl text-gray-800
+        font-semibold'>
+          {currency}{car.pricePerDay}
+          <span className='text-base text-gray-400 font-normal'> per day</span>
+        </p>
+
+        <hr className='border-borderColor my-6'/>
+
+        <div className='flex flex-col gap-2'>
+          <label htmlFor="pickup-date">Pickup Date</label>
+          <input type='date' className='border border-borderColor px-3 py-2
+          rounded-lg' required id='pickup-date' 
+          min={new Date().toISOString().split('T')[0]}/>
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <label htmlFor="return-date">Return Date</label>
+          <input type='date' className='border border-borderColor px-3 py-2
+          rounded-lg' required id='return-date'/>
+        </div>
+
+          <button className='w-full bg-primary hover:bg-primary-dull
+          transition-all py-3 font-medium text-white rounded-xl
+          cursor-pointer'>Book Now</button>
+
+          <p className='text-center text-sm'>No credit card required to reserve</p>
+
+       </form>
      </div>
     </div>
   ) : <Loader/>
