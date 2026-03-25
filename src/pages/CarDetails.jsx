@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { assets, dummyCarData } from '../assets/assets'
+import Loader from '../components/Loader'
 
 const CarDetails = () => {
   const {id} = useParams()
@@ -33,7 +34,7 @@ const CarDetails = () => {
             {[
               {icon:assets.users_icon,text : `${car.seating_capacity}
               Seats`},
-              {icon:assets.fuel_icon , text:car.fuel_icon},
+              {icon:assets.fuel_icon , text:car.fuel_type},
               {icon:assets.car_icon , text:car.transmission},
               {icon:assets.location_icon , text:car.location}
             ].map(({icon,text})=>(
@@ -44,6 +45,28 @@ const CarDetails = () => {
               </div>
             ))}
           </div>
+          {/* discription */}
+          <div>
+            <h1 className='text-xl font-medium mb-3'> Description</h1>
+            <p className='text-gray-500 '>{car.description}</p>
+          </div>
+          {/* features */}
+          <div>
+            <h1 className='text-xl font-medium mb-3'> Features</h1>
+            <ul className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+              {
+               ["360 camera","Bluetoth","GPS","Heated Seats",
+                "Rear View Mirror"].map((item)=>(
+                  <li key={item} className='flex items-center text-gray-500'>
+                    <img src={assets.check_icon} className='h-4 mr-2' alt=""/>
+                    {item}
+                  </li>
+                ))
+              }
+
+            </ul>
+
+          </div>
          </div>
        </div>
 
@@ -51,7 +74,7 @@ const CarDetails = () => {
        <form></form>
      </div>
     </div>
-  ) : <p>Loading..</p>
+  ) : <Loader/>
 }
 
 export default CarDetails
