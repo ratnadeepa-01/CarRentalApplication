@@ -58,9 +58,7 @@ const MyBookings = () => {
                 mt-1'/>
                 <div>
                   <p className='text-gray-500'>Rental Period</p>
-                  <p>{booking.pickupDate.split('T')[0] }
-                     To 
-                    {booking.returnDate.split('T')[0]}
+                  <p>{booking.pickupDate.split('T')[0] } To {booking.returnDate.split('T')[0]}
                   </p>
                 </div>
               </div>
