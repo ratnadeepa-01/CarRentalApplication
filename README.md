@@ -1,6 +1,7 @@
 🚗 Car Rental Platform
 
-A modern Car Rental Web Application that allows users to browse available cars, view details, book vehicles, and manage reservations. The platform also includes an Owner Dashboard for managing cars and bookings.
+A modern Car Rental Web Application that allows users to browse available cars, view details, book vehicles, and manage reservations.
+The platform also includes an Owner Dashboard for managing cars and bookings.
 
 📌 Features
 👤 User Features
@@ -9,7 +10,7 @@ View detailed car information
 Book cars for a selected rental period
 View and manage personal bookings
 Responsive user interface
-🧑‍💼 Owner/Admin Features
+🧑‍💼 Owner / Admin Features
 Dashboard with platform statistics
 Add new cars to the platform
 Manage existing cars
@@ -26,7 +27,9 @@ Node.js
 Express.js
 Database (Future Integration)
 MongoDB
-📂 Project Structure
+## 📂 Project Structure
+
+```
 car-rental/
 │
 ├── src/
@@ -57,41 +60,51 @@ car-rental/
 │   └── main.jsx
 │
 └── README.md
+```
+## 📊 Dashboard
 
-Now GitHub will display it perfectly aligned.
+The **Owner Dashboard** provides insights such as:
 
-📊 Dashboard
+- Total Cars
+- Total Bookings
+- Pending Bookings
+- Completed Bookings
+- Monthly Revenue
+- Recent Booking Activities
 
-The Owner Dashboard provides insights such as:
+---
 
-Total Cars
-Total Bookings
-Pending Bookings
-Completed Bookings
-Monthly Revenue
-Recent Booking Activities
-🧭 Routing Structure
-/                  → Home
-/cars              → Car listing
-/car-details/:id   → Car details page
-/my-bookings       → User bookings
+## 🧭 Routing Structure
 
-/owner             → Owner dashboard
-/owner/add-car     → Add new car
-/owner/manage-car  → Manage existing cars
-/owner/manage-bookings → Manage bookings
+- `/` → Home  
+- `/cars` → Car listing  
+- `/car-details/:id` → Car details page  
+- `/my-bookings` → User bookings  
 
-Nested routing is implemented using React Router <Outlet />.
+### Owner Routes
+- `/owner` → Owner dashboard  
+- `/owner/add-car` → Add new car  
+- `/owner/manage-car` → Manage existing cars  
+- `/owner/manage-bookings` → Manage bookings  
 
-⚙️ Installation
+Nested routing is implemented using **React Router `<Outlet />`**.
+
+---
+
+## ⚙️ Installation
+
+
+```bash
 1️⃣ Clone the repository
 git clone https://github.com/your-username/car-rental.git
-2️⃣ Navigate into project
+2️⃣ Navigate into the project
 cd car-rental
 3️⃣ Install dependencies
 npm install
-4️⃣ Run development server
+4️⃣ Run the development server
 npm run dev
+
+
 🚀 Future Improvements
 User authentication system
 Payment gateway integration
@@ -104,4 +117,4 @@ Booking notifications
 Ratnadeepa K P
 ECE Student | Web Development Enthusiast
 
-⭐ If you like this project, consider starring the repository.
+⭐ If you like this project, consider starring the repository
