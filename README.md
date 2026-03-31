@@ -84,7 +84,7 @@ The **Owner Dashboard** provides insights such as:
 ### Owner Routes
 - `/owner` → Owner dashboard  
 - `/owner/add-car` → Add new car  
-- `/owner/manage-car` → Manage existing cars  
+- `/owner/manage-cars` → Manage existing cars  
 - `/owner/manage-bookings` → Manage bookings  
 
 Nested routing is implemented using **React Router `<Outlet />`**.

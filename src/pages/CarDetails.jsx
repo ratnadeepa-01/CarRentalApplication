@@ -33,7 +33,7 @@ const CarDetails = () => {
             <h1 className='text-3xl font-bold'>{car.brand}{car.model}</h1>
             <p className='text-gray-500 text-lg'>{car.category}.{car.year}</p>
           </div>
-          <hr className='border-borderColor my-6'/>
+          <hr className='border-gray-200 my-6'/>
 
           <div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
             {[
@@ -90,18 +90,18 @@ const CarDetails = () => {
           <span className='text-base text-gray-400 font-normal'> per day</span>
         </p>
 
-        <hr className='border-borderColor my-6'/>
+        <hr className='border-gray-200 my-6'/>
 
         <div className='flex flex-col gap-2'>
           <label htmlFor="pickup-date">Pickup Date</label>
-          <input type='date' className='border border-borderColor px-3 py-2
+          <input type='date' className='border border-gray-200 px-3 py-2
           rounded-lg' required id='pickup-date' 
           min={new Date().toISOString().split('T')[0]}/>
         </div>
 
         <div className='flex flex-col gap-2'>
           <label htmlFor="return-date">Return Date</label>
-          <input type='date' className='border border-borderColor px-3 py-2
+          <input type='date' className='border border-gray-200 px-3 py-2
           rounded-lg' required id='return-date'/>
         </div>
 

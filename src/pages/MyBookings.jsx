@@ -25,7 +25,7 @@ const MyBookings = () => {
     <div>
       {bookings.map((booking,index)=>(
         <div key={booking._id} className='grid grid-cols-1 md:grid-cols-4 gap-6
-        p-6 border border-borderColor rounded-lg mt-5 first:mt-12'>
+        p-6 border border-gray-200 rounded-lg mt-5 first:mt-12'>
           {/* car image + info */}
           <div className='md:col-span-1'>
             <div className='rounded-md overflow-hidden mb-3'>

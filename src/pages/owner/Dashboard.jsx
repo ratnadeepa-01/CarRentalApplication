@@ -51,7 +51,7 @@ const Dashboard = () => {
       my-8 max-w-3xl'>
         {dashboardCards.map((card,index)=>(
           <div key={index} className='flex gap-2 items-center justify-between p-4
-          rounded-md border border-borderColor'>
+          rounded-md border border-gray-200'>
             <div>
               <h1 className='text-xs text-gray-500'>{card.title}</h1>
               <p className='text-lg font-semibold'>{card.value}</p>
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
         <div className='flex flex-wrap items-start gap-6 mb-8 w-full'>
           {/* recent booking */}
-          <div className='p-4 md:p-6 border border-borderColor rounded-md 
+          <div className='p-4 md:p-6 border border-gray-200 rounded-md 
           max-w-lg w-full'>
             <h1 className='text-lg font-medium'>Recent Bookings</h1>
             <p className='text-gray-500'>Latest customer bookings</p>
@@ -87,7 +87,7 @@ const Dashboard = () => {
 
                 <div className='flex items-center gap-2 font-medium'>
                   <p className='text-sm text-gray-500'>{currency}{booking.price}</p>
-                  <p className='px-3 py=0.5 border border-borderColor rounded-full
+                  <p className='px-3 py=0.5 border border-gray-200 rounded-full
                   text-sm'>{booking.status}</p>
                 </div>
 
@@ -96,7 +96,7 @@ const Dashboard = () => {
           </div>
 
           {/* monthly revenue */}
-          <div className='p-4 md:p-6 mb-6 border border-borderColor rounded-md
+          <div className='p-4 md:p-6 mb-6 border border-gray-200 rounded-md
           w-full md:max-w-xs'>
             <h1 className='text-lg font-medium'>Monthly Revenue</h1>
             <p className='text-gray-500'>Revenue for current month</p>
