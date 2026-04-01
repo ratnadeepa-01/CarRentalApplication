@@ -37,7 +37,7 @@ const ManageBookings = () => {
             {bookings.map((booking,index)=>(
               <tr key={index} className='border-t border border-gray-200 text-gray-500'>
 
-                <td classname='p-3 flex items-center gap-3'>
+                <td className='p-3  flex items-center gap-3'>
                   <img src={booking.car.image} alt=""
                   className='h-12 w-12 aspect-square rounded-md object-cover' />
                   <p className='font-medium max-md:hidden'>{booking.car.brand} {booking.car.model}</p>
@@ -61,7 +61,21 @@ const ManageBookings = () => {
                 </td>
 
                 <td className='p-3'>
-                  
+                  {booking.status === 'pending' ?(
+                    <select value={booking.status} className='px-2 py-1.5 mt-1
+                    text-gray-500 border border-gray-200 rounded-md'>
+                      <option value="pending">Pending</option>
+                      <option value="cancelled">cancelled</option>
+                      <option value="confirmed">confirmed</option>
+                    </select>
+                  ):(
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold 
+                      ${booking.status === 'confirmed' ? 'bg-green-100 text-green-500'
+                        : 'bg-red-100 text-red-500'
+                       }`}>
+                      {booking.status}
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
