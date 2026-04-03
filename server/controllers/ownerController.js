@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 
+// api to change role of user
 
 export const changeRoleToOwner = async ()=>{
     try {
@@ -9,6 +10,25 @@ export const changeRoleToOwner = async ()=>{
             success: true,
             message: 'Now you can list cars'
         })
+    } catch (error) {
+        console.log(error.message);
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+// api to list car
+
+export const addCar = async (req,res)=>{
+    try {
+        const {_id} = req.user;
+        let car = JSON.parse(req.body.carData);
+        const imageFile = req.file;
+
+        
+
     } catch (error) {
         console.log(error.message);
         res.json({
