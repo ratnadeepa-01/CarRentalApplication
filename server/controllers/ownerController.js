@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import Car from "../models/Car.js";
 
 import fs from 'fs';
+import Booking from "../models/Booking.js";
 
 // api to change role of user
 
@@ -142,7 +143,25 @@ export const getDashboardData = async(req,res)=>{
         }
 
         const cars = await Car.find({owner: _id})
+        const bookings = await Booking.find({owner:_id}).populate('car').
+        sort({createdAt: -1})
+ 
+        const pendingBookings = await Booking.find({owner:_id, status: "pending"})
+        const completedBookings = await Booking.find({owner:_id, status: "confirmed"})
 
+        //calculate monthlyRevenue from bookings where status is confirmed
+        const monthlyRevenue = bookings.slice().filter(booking => booking.
+            status === 'confirmed').reduce((acc,booking)=> acc+booking.price,0)
+
+        const dashboardDaata ={
+            totalCars: cars.length,
+            totalBookings: bookings.length,
+            pendingBookings: pendingBookings.length,
+            completedBookings: completedBookings.length,
+            recentBookings: bookings.slice(0,3),
+            monthlyRevenue
+        }
+        res.json({succes: true, dashboardDaata})
     } catch (error) {
         console.log(error.message);
         res.json({
@@ -150,4 +169,30 @@ export const getDashboardData = async(req,res)=>{
             message: error.message
         })
     }
+}
+
+//API to update user image
+export const updateUserImage = async(req,res)=>{
+ try {
+    const {_id} = req.user;
+     const imageFile = req.file;
+
+        // upload image to imagekit
+       const response = await imagekit.files.upload({
+            file: fs.readFileSync(imageFile.path).toString("base64"),
+            fileName: imageFile.originalname,
+            folder: "/users"
+        });
+
+        //optimization through imagekit URL transformation
+        const optimizedImageURL = `${response.url}?tr=w-400,q-auto,f-webp`;
+
+        const image = optimizedImageURL;
+        
+        await User.findByIdAndUpdate(_id, {image});
+        res.json({success: true, message: "image updated"})
+ } catch (error) {
+    console.log(error.message);
+    res.json({success: false, message: error.message})
+ }
 }
