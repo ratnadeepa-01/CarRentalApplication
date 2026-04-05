@@ -19,6 +19,8 @@ export const AppProvider = ({children})=>{
     const [isOwner, setIsOwner] = useState(false)
     const [pickupDate, setPickupDate] = useState('')
     const [returnDate, setReturnDate] = useState('')
+    const [showLogin, setShowLogin] = useState('')
+
 
     const [cars, setCars] = useState([])
 
@@ -42,7 +44,7 @@ export const AppProvider = ({children})=>{
         localStorage.removeItem('token')
         setToken(null)
         setUser(null)
-        setIsOwner(fasle)
+        setIsOwner(false)
         axios.defaults.headers.common['Authorization'] = ''
         toast.success('You have been logged out')
     }
@@ -76,11 +78,14 @@ export const AppProvider = ({children})=>{
 
 
     const value = {
-        navigate,currency
+        navigate,currency,axios,user,setUser,
+        token, setToken, isOwner, setIsOwner,
+        fetchUser, showLogin, setShowLogin, logout,
+        fetchCars, cars, setCars, pickupDate, setPickupDate,
+        returnDate, setReturnDate
     }
 
-    return
-    ( <AppContext.Provider value={value}>
+    return( <AppContext.Provider value={value}>
         {children}
     </AppContext.Provider>
     );

@@ -6,7 +6,7 @@ const Banner = () => {
     <div className="flex flex-col md:flex-row md:items-start items-center
     justify-between px-8 min-md:pl-14 pt-10 bg-gradient-to-r from-[#0558fe] to-[#A9CFFF]
     max-w-6xl mx-3 md:mx-auto rounded-2xl overflow-hidden ">
-         <div classname="text-white">
+         <div className="text-white">
             <h2 className="text-exl font-medium">Do You Own a Luxury Car?</h2>
             <p className="mt-2">Monetize your vehicle effortlessly by listing it on carrental.</p>
             <p className="max-w-130">We take care of insurance,driver verification and secure payments-
