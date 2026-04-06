@@ -34,10 +34,13 @@ const Login = () => {
     const { data } = await axios.post(`/api/user/${state}`, payload);
     console.log("Sending data:", payload)
       if(data.success){
+        toast.success(state === "register" ? "User created successfully" : "Logged in successfully")
         navigate('/')
         setToken(data.token)
         localStorage.setItem('token',data.token)
         setShowLogin(false)
+      } else {
+        toast.error(data.message)
       }
       
     } catch (error) {
