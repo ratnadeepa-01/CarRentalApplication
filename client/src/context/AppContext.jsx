@@ -32,10 +32,13 @@ export const AppProvider = ({children})=>{
             setUser(data.user)
             setIsOwner(data.user.role === 'owner')
            }else{
-            navigate('/ ')
+            navigate('/')
            }
         } catch (error) {
-            toast.error(error.message);
+           if(error.response?.status === 401){
+            return;
+          }
+          toast.error(error.message);
         }
     }
 
@@ -71,7 +74,7 @@ export const AppProvider = ({children})=>{
     //useeffect to fetch user data when token is available
     useEffect(()=>{
         if(token){
-            axios.defaults.headers.common['Authorization'] = `${token}`
+            axios.defaults.headers.common['Authorization'] =  `Bearer ${token}`;
             fetchUser()
         }
     },[token])

@@ -5,6 +5,8 @@ import connectDB from './configs/db.js';
 import userRouter from './routes/userRoutes.js';
 import ownerRouter from './routes/ownerRoute.js';
 import bookingRouter from './routes/bookingRout.js';
+import authRoutes from "./routes/authRoutes.js";
+import "./configs/passport.js";
 
 // intialixe express app
 const app = express();
@@ -24,7 +26,7 @@ app.use('/api/user',userRouter)
 app.use('/api/owner', ownerRouter);
 app.use('/api/bookings', bookingRouter);
 
-
+// app.use("/api/auth", authRoutes);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT ,()=>
      console.log(`Server is running on port ${PORT}`

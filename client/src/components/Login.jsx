@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
+
 
 const Login = () => {
 
-  const {setShowLogin, axios, setToken} = useAppContext()
+  const {setShowLogin, axios, setToken, navigate} = useAppContext()
 
   const [state, setState] = useState("login")
 
@@ -21,19 +23,38 @@ const Login = () => {
     })
   }
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault()
+  const onSubmitHandler = async (event) => {
+    try {
+      event.preventDefault();
+      const payload =
+      state === "register"
+        ? formData
+        : { email: formData.email, password: formData.password };
 
-    if (state === "login") {
-      console.log("Login Data:", {
-        email: formData.email,
-        password: formData.password
-      })
-    } else {
-      console.log("Register Data:", formData)
+    const { data } = await axios.post(`/api/user/${state}`, payload);
+    console.log("Sending data:", payload)
+      if(data.success){
+        navigate('/')
+        setToken(data.token)
+        localStorage.setItem('token',data.token)
+        setShowLogin(false)
+      }
+      
+    } catch (error) {
+       // ignore unauthorized
+      if (error.response?.status !== 401) {
+        toast.error("Something went wrong")
+      }
     }
   }
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/api/auth/google`
+  }
+
+  const handleGithubLogin = () => {
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/api/auth/github`
+  }
   return (
     <div
       onClick={() => setShowLogin(false)}
@@ -117,6 +138,7 @@ const Login = () => {
 {/* Github Login */}
 <button
   type="button"
+  onClick={handleGithubLogin}
   className="flex py-2 w-full items-center justify-center gap-2 rounded bg-gray-800 text-gray-300 hover:bg-gray-900"
 >
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
@@ -131,6 +153,7 @@ const Login = () => {
 {/* Google Login */}
 <button
   type="button"
+  onClick={handleGoogleLogin}
   className="mt-2 flex py-2 w-full items-center justify-center gap-2 rounded bg-gray-800 text-gray-300 hover:bg-gray-900"
 >
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20">
