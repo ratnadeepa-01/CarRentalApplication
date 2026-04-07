@@ -34,10 +34,10 @@ const Sidebar = () => {
         
         <div className='group relative'>
             <label htmlFor='image'>
-                <img src={image ?   URL.createObjectURL(image) : user?.image || 
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUo9Zp13MTtMz8LzYXlWCpTIcnaAUrRpc_Sg&s"}
-                    alt='' className='h-9 md:h-14 w-9 md:w-14 rounded-full
-                    mx-auto'/>
+                <img src={image ? URL.createObjectURL(image) : user?.image ? user.image : (user?.gender === 'female' ? assets.female_profile : assets.male_profile)}
+                    onError={(e) => { e.target.onError = null; e.target.src = user?.gender === 'female' ? assets.female_profile : assets.male_profile; }}
+                    alt='Profile' className='h-9 md:h-14 w-9 md:w-14 rounded-full
+                    mx-auto object-cover'/>
                     <input type='file' id='image' accept='image/*'
                     hidden onChange={e=> setImage(e.target.files[0])}/>
 

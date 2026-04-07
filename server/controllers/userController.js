@@ -13,7 +13,7 @@ const generateToken = (userId) => {
 // register user
 export const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body
+        const { name, email, password, gender } = req.body
 
         if (!name || !email || !password || password.length < 8) {
             return res.json({ success: false, message: 'fill all the fields' })
@@ -26,7 +26,7 @@ export const registerUser = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await User.create({ name, email, password: hashedPassword })
+        const user = await User.create({ name, email, password: hashedPassword, gender: gender || 'male' })
         const token = generateToken(user._id.toString())
         res.json({ success: true, token })
 
@@ -61,6 +61,8 @@ export const loginUser = async (req, res) => {
 export const getUserData = async (req, res) => {
     try {
         const { user } = req;
+        console.log("Fetching user data for:", user.email, "Image field:", user.image);
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
         res.json({ success: true, user })
     } catch (error) {
         console.log(error.message);
@@ -71,7 +73,7 @@ export const getUserData = async (req, res) => {
 //get all cars for the frontend
 export const getCars = async (req, res) => {
     try {
-        const cars = await Car.find({ isAvaliable: true });
+        const cars = await Car.find({ isAvailable: true });
         res.json({ success: true, cars })
     } catch (error) {
         console.log(error.message);

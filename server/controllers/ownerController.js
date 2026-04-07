@@ -28,9 +28,18 @@ export const changeRoleToOwner = async (req,res)=>{
 
 export const addCar = async (req,res)=>{
     try {
-        const {_id} = req.user;
-        let car = JSON.parse(req.body.carData);
+        const {_id, role} = req.user;
+
+        if (role !== 'owner') {
+            return res.json({ success: false, message: "unauthorized" })
+        }
+
+        let carDataFromRequest = JSON.parse(req.body.carData);
         const imageFile = req.file;
+
+        if (!imageFile) {
+            return res.json({ success: false, message: "No image file uploaded" })
+        }
 
         // upload image to imagekit
        const response = await imagekit.files.upload({
@@ -39,12 +48,9 @@ export const addCar = async (req,res)=>{
             folder: "/cars"
         });
 
-        //optimization through imagekit URL transformation
-        const optimizedImageURL = `${response.url}?tr=w-1280,q-auto,f-webp`;
-
-        const image = optimizedImageURL;
-        await Car.create({...car, owner: _id, image})
-            console.log("FILE:", req.file, optimizedImageURL);
+        const image = response.url;
+        await Car.create({...carDataFromRequest, owner: _id, image})
+            console.log("FILE:", req.file, image);
 
         res.json({
             success: true,
@@ -161,7 +167,7 @@ export const getDashboardData = async(req,res)=>{
             recentBookings: bookings.slice(0,3),
             monthlyRevenue
         }
-        res.json({succes: true, dashboardDaata})
+        res.json({success: true, dashboardData: dashboardDaata})
     } catch (error) {
         console.log(error.message);
         res.json({
@@ -174,8 +180,13 @@ export const getDashboardData = async(req,res)=>{
 //API to update user image
 export const updateUserImage = async(req,res)=>{
  try {
-    const {_id} = req.user;
+    const {_id, role} = req.user;
+
      const imageFile = req.file;
+
+     if (!imageFile) {
+         return res.json({ success: false, message: "No image file uploaded" })
+     }
 
         // upload image to imagekit
        const response = await imagekit.files.upload({
@@ -184,10 +195,7 @@ export const updateUserImage = async(req,res)=>{
             folder: "/users"
         });
 
-        //optimization through imagekit URL transformation
-        const optimizedImageURL = `${response.url}?tr=w-400,q-auto,f-webp`;
-
-        const image = optimizedImageURL;
+        const image = response.url;
         
         await User.findByIdAndUpdate(_id, {image});
         res.json({success: true, message: "image updated"})

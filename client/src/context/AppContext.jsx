@@ -27,7 +27,13 @@ export const AppProvider = ({children})=>{
     //Function to check is user is logged in
     const fetchUser = async()=>{
         try {
-           const {data} = await axios.get('/api/user/data')
+           const {data} = await axios.get(`/api/user/data?t=${new Date().getTime()}`, {
+              headers: {
+                 'Cache-Control': 'no-cache',
+                 'Pragma': 'no-cache',
+                 'Expires': '0'
+              }
+           })
            if(data.success){
             setUser(data.user)
             setIsOwner(data.user.role === 'owner')

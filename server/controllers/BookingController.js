@@ -86,7 +86,7 @@ export const checkAvailabilityOfCar = async(req, res)=>{
         if(req.user.role !== 'owner'){
             return res.json({success: false, message: "Unauthorized"})
         }
-        const bookings = await Booking.find({owner: req.user_id}).populate('car user').select("-user.password").sort({createdAt: -1})
+        const bookings = await Booking.find({owner: req.user._id}).populate('car user').sort({createdAt: -1})
         res.json({success: true, bookings})
     } catch (error) {
         console.log(error.message);
@@ -99,9 +99,9 @@ export const checkAvailabilityOfCar = async(req, res)=>{
     try {
         const {_id}= req.user;
         const {bookingId, status} = req.body
-        const booking = await booking.findById(bookingId)
+        const booking = await Booking.findById(bookingId)
 
-        if(booking.owner.toString() !== _id.tostring()){
+        if(booking.owner.toString() !== _id.toString()){
             return res.json({success: false, message: "unauthorized"})
         }
 

@@ -13,7 +13,8 @@ const Login = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    gender: "male"
   })
 
   const handleChange = (e) => {
@@ -93,6 +94,22 @@ const Login = () => {
                 placeholder="Enter your name"
                 className="w-full mt-1 px-3 py-2 border rounded bg-slate-100"
               />
+            </div>
+          )}
+
+          {/* Gender (only for signup) */}
+          {state === "register" && (
+            <div className="mb-4">
+              <label className="text-sm text-gray-400">Gender</label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="w-full mt-1 px-3 py-2 border rounded bg-slate-100"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
             </div>
           )}
 
