@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const AddCar = () => {
 
-  const {axios, currency} = useAppContext()
+  const {axios, currency, fetchCars} = useAppContext()
 
    const [image, setImage] = useState(null);
    const [car, setCar] = useState({
@@ -38,6 +38,7 @@ const AddCar = () => {
 
       if(data.success){
         toast.success(data.message)
+        fetchCars() // refresh global car list so FeaturedSection updates
         setImage(null);
         setCar({
           brand: '',

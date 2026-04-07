@@ -6,8 +6,9 @@ import toast from 'react-hot-toast';
 
 const ManageCars = () => {
 
-  const { axios, currency } = useAppContext()
+  const { isOwner, axios, currency } = useAppContext()
   const [cars, setCars] = useState([]);
+  const [confirmDelete, setConfirmDelete] = useState(null); // stores carId to delete
 
   const fetchOwnerCars = async ()=>{
     try {
@@ -35,9 +36,9 @@ const ManageCars = () => {
     }
   }
 
-  const deleteCar = async (carId) => {
+  const deleteCar = async () => {
     try {
-      const {data} = await axios.post('/api/owner/delete-car', {carId})
+      const {data} = await axios.post('/api/owner/delete-car', {carId: confirmDelete})
       if(data.success){
         fetchOwnerCars()
         toast.success(data.message)
@@ -46,12 +47,15 @@ const ManageCars = () => {
       }
     } catch (error) {
       toast.error(error.message)
+    } finally {
+      setConfirmDelete(null)
     }
   }
 
   useEffect(()=>{
-    fetchOwnerCars()
-  },[])
+    isOwner && fetchOwnerCars()
+  },[isOwner])
+
   return (
     <div className='pxx-4 pt-10 md:px-10 w-full'>
 
@@ -95,7 +99,7 @@ const ManageCars = () => {
                 <td className='flex items-center p-3'>
                   <img onClick={()=>toggleAvailability(car._id)} src={car.isAvailable ? assets.eye_close_icon : assets.eye_icon} 
                   alt="" className='cursor-pointer'/>
-                  <img onClick={()=>deleteCar(car._id)} src={assets.delete_icon} 
+                  <img onClick={()=>setConfirmDelete(car._id)} src={assets.delete_icon} 
                   alt="" className='cursor-pointer'/>
                 </td>
               </tr>
@@ -103,6 +107,36 @@ const ManageCars = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {confirmDelete && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm'>
+          <div className='bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm mx-4 animate-fadeIn'>
+            <div className='flex flex-col items-center text-center gap-3'>
+              <div className='w-14 h-14 rounded-full bg-red-100 flex items-center justify-center'>
+                <img src={assets.delete_icon} alt='delete' className='w-6 h-6'/>
+              </div>
+              <h2 className='text-lg font-semibold text-gray-800'>Delete Car</h2>
+              <p className='text-sm text-gray-500'>Are you sure you want to remove this car from the platform? This action cannot be undone.</p>
+            </div>
+            <div className='flex gap-3 mt-6'>
+              <button
+                onClick={() => setConfirmDelete(null)}
+                className='flex-1 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-all text-sm font-medium'
+              >
+                Cancel
+              </button>
+              <button
+                onClick={deleteCar}
+                className='flex-1 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all text-sm font-medium'
+              >
+                Yes, Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

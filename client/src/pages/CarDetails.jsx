@@ -1,21 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { data, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { assets, dummyCarData } from '../assets/assets'
 import Loader from '../components/Loader'
+import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
 
 const CarDetails = () => {
+
   const {id} = useParams();
-  const navigate = useNavigate();
+  const {cars, axios, pickupDate,setPickupDate,returnDate, setReturnDate , navigate} = useAppContext()
   const [car,setCar] = useState(null);
   const currency = import.meta.env.VITE_CURRENCY;
    
-  const handelSubmit = async (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
+    console.log("Button clicked")
+    try {
+      const {data} = await axios.post('/api/bookings/create',{
+      car:id,
+      pickupDate,
+      returnDate
+    })
+    if(data.success){
+      toast.success(data.message)
+      setPickupDate('')
+      setReturnDate('')
+      navigate('/my-bookings')
+    } else {
+      toast.error(data.message)
+    }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
   useEffect(()=>{
-    setCar(dummyCarData.find(car => car._id === id))
-  },[id])
+    setCar(cars.find(car => car._id === id))
+  },[id, cars])
   return car ? (
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-16'>
      <button onClick={()=> navigate(-1)} className='flex items-center gap-2 mb-6 text-gray-500 cursor-pointer'>
@@ -30,8 +51,8 @@ const CarDetails = () => {
          object-cover rounded-xl mb-6 shadow-md'/>
          <div className='space-y-6'>
           <div>
-            <h1 className='text-3xl font-bold'>{car.brand}{car.model}</h1>
-            <p className='text-gray-500 text-lg'>{car.category}.{car.year}</p>
+            <h1 className='text-3xl font-bold'>{car.brand} . {car.model}</h1>
+            <p className='text-gray-500 text-lg'>{car.category} . {car.year}</p>
           </div>
           <hr className='border-gray-200 my-6'/>
 
@@ -80,11 +101,11 @@ const CarDetails = () => {
        </div>
 
        {/* Right: Booking Form */}
-       <form onSubmit={handelSubmit}
+       <form onSubmit={handleSubmit}
        className='shadow-lg h-max sticky top-18 rounded-xl
        p-6 space-y-6 text-gray-500 '>
 
-        <p className='flex items-centerjustify-between text-2xl text-gray-800
+        <p className='flex items-center justify-between text-2xl text-gray-800
         font-semibold'>
           {currency}{car.pricePerDay}
           <span className='text-base text-gray-400 font-normal'> per day</span>
@@ -94,18 +115,21 @@ const CarDetails = () => {
 
         <div className='flex flex-col gap-2'>
           <label htmlFor="pickup-date">Pickup Date</label>
-          <input type='date' className='border border-gray-200 px-3 py-2
-          rounded-lg' required id='pickup-date' 
+          <input value={pickupDate} onChange={(e)=>setPickupDate(e.target.value)}
+          type='date' 
+          className='border border-gray-200 px-3 py-2 rounded-lg' required id='pickup-date' 
           min={new Date().toISOString().split('T')[0]}/>
         </div>
 
         <div className='flex flex-col gap-2'>
           <label htmlFor="return-date">Return Date</label>
-          <input type='date' className='border border-gray-200 px-3 py-2
+          <input value={returnDate} onChange={(e)=>setReturnDate(e.target.value)}
+          type='date' className='border border-gray-200 px-3 py-2
           rounded-lg' required id='return-date'/>
         </div>
 
-          <button className='w-full bg-primary hover:bg-primary-dull
+          <button type="submit"
+          className='w-full bg-primary hover:bg-primary-dull
           transition-all py-3 font-medium text-white rounded-xl
           cursor-pointer'>Book Now</button>
 

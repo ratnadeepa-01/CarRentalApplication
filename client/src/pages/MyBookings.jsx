@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const MyBookings = () => {
 
-  const { axios, currency } = useAppContext()
+  const { axios, currency ,user} = useAppContext()
   const [bookings, setBookings] = useState([]);
 
   const fetchMyBookings = async ()=>{
@@ -23,8 +23,8 @@ const MyBookings = () => {
   }
   
   useEffect(()=>{
-    fetchMyBookings()
-  },[])
+    user && fetchMyBookings()
+  },[user])
   return (
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 
     2xl:px-48 mt-16 text-sm max-w-7xl'>

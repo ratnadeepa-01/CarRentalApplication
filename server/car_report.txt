@@ -1,0 +1,62 @@
+TOTAL CARS: 10
+---
+Car 1:
+  ID: 69d0c92cee1f7d6c39243b57
+  Brand: Toyota Innova
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/ChatGPT_Image_Apr_2__2026__09_39_25_PM_5tSxzn4cJ.png
+---
+Car 2:
+  ID: 69d0d033ee1f7d6c39243b5a
+  Brand: Toyota Innova
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/k7-logo_vKCzjnp5I.png
+---
+Car 3:
+  ID: 69d0d11faab89dce23bb37a9
+  Brand: Toyota Innova
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/k7-logo_0qWV34sER.png
+---
+Car 4:
+  ID: 69d0d229aab89dce23bb37ac
+  Brand: Toyota Innova
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/png-clipart-spider-man-heroes-download-with-transparent-background-thumbnail_KnuJjwA-7.png
+---
+Car 5:
+  ID: 69d0d33e092380cc623b8186
+  Brand: Toyota Innova
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/png-clipart-spider-man-heroes-download-with-transparent-background-thumbnail_xWr0-zwiG.png
+---
+Car 6:
+  ID: 69d0d3976c87659d69c86519
+  Brand: Toyota Innova
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/png-clipart-spider-man-heroes-download-with-transparent-background-thumbnail_HR26OlXfo.png
+---
+Car 7:
+  ID: 69d4a9a2de490e477632d64a
+  Brand: BMW X5
+  Available: true
+  Image: https://ik.imagekit.io/Ratna111/cars/868427bfe1eaa8956589ae0603822138_UbRbg9GH0.jpg
+---
+Car 8:
+  ID: 69d4bee8586940f06633bfdc
+  Brand: BMW X5
+  Available: false
+  Image: https://ik.imagekit.io/Ratna111/cars/wallpaper_RL2DgW6QK.jpg
+---
+Car 9:
+  ID: 69d4c066586940f06633bff6
+  Brand: svc sdfc
+  Available: false
+  Image: https://ik.imagekit.io/Ratna111/cars/png-clipart-spider-man-heroes-download-with-transparent-background-thumbnail_4kS9zKo_8C.png
+---
+Car 10:
+  ID: 69d4c124586940f06633c000
+  Brand: BMW X5
+  Available: false
+  Image: https://ik.imagekit.io/Ratna111/cars/wallpaper_o_D3weJDt.jpg
+---
